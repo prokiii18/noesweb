@@ -52,6 +52,402 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
   .contactGrid{grid-template-columns:1fr;min-height:0} .contactInfo{min-height:340px;padding:28px} .mapReal{height:430px} footer{margin-top:48px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* ===== V10 HERO ===== */
+.hero-v9{display:none!important}
+
+.hero-v10{
+  min-height:100svh;
+  padding:0;
+  background:var(--paper);
+}
+.hero-v10-inner{
+  min-height:100svh;
+  padding:118px 26px 24px;
+  display:flex;
+  flex-direction:column;
+}
+.hero-v10-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#6a655e;
+}
+.hero-v10-core{
+  flex:1;
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:46px;
+  align-items:center;
+  padding:7vh 0 5vh;
+}
+.hero-v10-copy h1{
+  margin:0;
+  max-width:980px;
+  font-size:clamp(58px,7.7vw,118px);
+  line-height:.92;
+  letter-spacing:-.067em;
+  font-weight:900;
+}
+.hero-v10-copy>p{
+  margin:28px 0 0;
+  max-width:660px;
+  font-size:18px;
+  line-height:1.48;
+}
+.hero-v10-actions{
+  margin-top:34px;
+  display:flex;
+  align-items:flex-end;
+  gap:34px;
+}
+.hero-v10-link{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding-bottom:5px;
+  border-bottom:1px solid #111;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.hero-v10-link svg{
+  width:16px;
+  height:16px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.35;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  transition:transform .3s var(--ease);
+}
+.hero-v10-link:hover svg{transform:translateX(4px)}
+.hero-v10-note{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px 18px;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  color:var(--muted);
+}
+.hero-v10-mark{
+  align-self:end;
+  padding-bottom:8px;
+  text-align:right;
+}
+.hero-v10-mark span{
+  display:block;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.hero-v10-mark strong{
+  display:block;
+  font-size:clamp(48px,6vw,92px);
+  line-height:.86;
+  letter-spacing:-.07em;
+}
+.hero-v10-film{
+  display:grid;
+  grid-template-columns:1.15fr .85fr .95fr .75fr;
+  gap:8px;
+  height:150px;
+  border-top:1px solid var(--line);
+  padding-top:8px;
+}
+.film-item{
+  position:relative;
+  overflow:hidden;
+  background:#d8d3ca;
+}
+.film-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.85);
+  transition:transform .65s var(--ease),filter .35s;
+}
+.film-item:hover img{
+  transform:scale(1.035);
+  filter:saturate(1);
+}
+.film-item span{
+  position:absolute;
+  left:9px;
+  bottom:8px;
+  background:rgba(243,240,233,.88);
+  backdrop-filter:blur(7px);
+  padding:5px 7px;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* Truly minimal service arrows */
+.serviceArrow{
+  width:30px;
+  height:30px;
+  border:1px solid rgba(13,13,13,.28);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  transition:border-color .3s var(--ease),transform .3s var(--ease);
+}
+.serviceArrow svg{
+  width:13px;
+  height:13px;
+  fill:none;
+  stroke:#111;
+  stroke-width:1.25;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.serviceArrow:before,.serviceArrow:after{content:none!important}
+.serviceCard:hover .serviceArrow{
+  transform:translateY(-2px)!important;
+  border-color:#111;
+}
+.serviceCard:hover .serviceArrow svg{
+  transform:translate(1px,-1px);
+}
+.serviceArrow svg{transition:transform .3s var(--ease)}
+
+@media(max-width:850px){
+  .hero-v10-inner{
+    min-height:100svh;
+    padding:104px 18px 18px;
+  }
+  .hero-v10-meta{
+    font-size:8px;
+  }
+  .hero-v10-meta span:last-child{display:none}
+  .hero-v10-core{
+    grid-template-columns:1fr;
+    gap:26px;
+    padding:7vh 0 4vh;
+    align-items:start;
+  }
+  .hero-v10-copy h1{
+    font-size:14.3vw;
+    line-height:.94;
+    letter-spacing:-.06em;
+  }
+  .hero-v10-copy>p{
+    margin-top:22px;
+    font-size:15.5px;
+    line-height:1.46;
+    max-width:94%;
+  }
+  .hero-v10-actions{
+    margin-top:25px;
+    display:block;
+  }
+  .hero-v10-note{
+    margin-top:19px;
+    max-width:300px;
+    font-size:8.5px;
+  }
+  .hero-v10-mark{
+    display:none;
+  }
+  .hero-v10-film{
+    height:112px;
+    grid-template-columns:1.2fr .8fr 1fr;
+    gap:6px;
+  }
+  .hero-v10-film .film-item:nth-child(4){display:none}
+  .film-item span{
+    font-size:7px;
+    left:6px;
+    bottom:6px;
+    padding:4px 6px;
+  }
+  .serviceArrow{
+    width:27px;
+    height:27px;
+  }
+  .serviceArrow svg{
+    width:11px;
+    height:11px;
+  }
+}
+/* ===== V11 FINAL HERO ===== */
+.hero-v10{display:none!important}
+
+.hero-v11{
+  padding:0;
+  min-height:100svh;
+  background:var(--paper);
+}
+.hero-v11-inner{
+  min-height:100svh;
+  padding:118px 26px 0;
+  display:flex;
+  flex-direction:column;
+}
+.hero-v11-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:#69645d;
+}
+.hero-v11-main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:7vh 0 8vh;
+}
+.hero-v11 h1{
+  margin:0;
+  max-width:1200px;
+  font-size:clamp(80px,12vw,186px);
+  line-height:.78;
+  letter-spacing:-.088em;
+  font-weight:900;
+}
+.hero-v11-bottom{
+  margin-top:40px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:32px;
+  align-items:start;
+}
+.hero-v11-bottom p{
+  margin:0;
+  max-width:720px;
+  font-size:clamp(17px,1.7vw,24px);
+  line-height:1.45;
+}
+.hero-v11-link{
+  justify-self:end;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding-bottom:5px;
+  border-bottom:1px solid #111;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.hero-v11-link svg{
+  width:15px;
+  height:15px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  transition:transform .3s var(--ease);
+}
+.hero-v11-link:hover svg{transform:translateX(3px)}
+.hero-v11-wordrail{
+  margin:0 -26px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  background:transparent;
+}
+.hero-v11-wordtrack{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  padding:16px 0;
+  animation:v11rail 28s linear infinite;
+}
+.hero-v11-wordtrack span{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.hero-v11-wordtrack i{
+  font-style:normal;
+  color:#aaa49b;
+  padding:0 24px;
+}
+@keyframes v11rail{to{transform:translateX(-50%)}}
+
+/* services: no arrows at all */
+.serviceCard{
+  grid-template-columns:60px 1.1fr .9fr!important;
+}
+.serviceArrow{display:none!important}
+
+/* remove pseudo arrows from nav/contact */
+.navcta::after,.contactLinks a::after{content:none!important}
+
+@media(max-width:850px){
+  .hero-v11-inner{
+    min-height:100svh;
+    padding:104px 18px 0;
+  }
+  .hero-v11-meta{
+    font-size:8px;
+  }
+  .hero-v11-meta span:last-child{
+    opacity:.7;
+  }
+  .hero-v11-main{
+    padding:9vh 0 9vh;
+  }
+  .hero-v11 h1{
+    font-size:18.2vw;
+    line-height:.81;
+    letter-spacing:-.08em;
+  }
+  .hero-v11-bottom{
+    margin-top:30px;
+    padding-top:15px;
+    grid-template-columns:1fr;
+    gap:23px;
+  }
+  .hero-v11-bottom p{
+    font-size:16px;
+    line-height:1.48;
+    max-width:94%;
+  }
+  .hero-v11-link{
+    justify-self:start;
+    font-size:9px;
+  }
+  .hero-v11-wordrail{
+    margin-left:-18px;
+    margin-right:-18px;
+  }
+  .hero-v11-wordtrack{
+    padding:14px 0;
+  }
+  .hero-v11-wordtrack span{
+    font-size:10px;
+  }
+  .hero-v11-wordtrack i{
+    padding:0 17px;
+  }
+  .serviceCard{
+    grid-template-columns:32px 1fr!important;
+  }
+  .serviceVisual{
+    grid-column:2!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -59,23 +455,45 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
 <nav class="nav">
   <a class="logo" href="#">NOE'S</a>
   <div class="navlinks"><a href="#projects">Realizace</a><a href="#services">Služby</a><a href="#team">Tým</a><a href="#contact">Kontakt</a></div>
-  <a class="navcta" href="#contact">Kontaktujte nás ↗</a>
+  <a class="navcta" href="#contact">Kontaktujte nás</a>
 </nav>
 
-<header class="hero">
-  <div>
-    <div class="heroTop"><span class="eyebrow">NOE'S · Praha</span><span class="eyebrow">20 let zkušeností</span></div>
-    <h1><span>JSME</span><span>NOE'S.</span></h1>
-    <div class="heroSub">
-      <p>Makáme, myslíme, objevujeme, cestujeme, sníme a vytváříme smysluplné kampaně.</p>
-      <div class="heroFacts"><div>Strategie<br>Kreativa</div><div>Field marketing<br>Produkce</div></div>
+<header class="hero hero-v11">
+  <div class="hero-v11-inner">
+    <div class="hero-v11-meta">
+      <span>JSME NOE'S.</span>
+      <span>Praha · 20 let zkušeností</span>
     </div>
-    <div class="heroActions"><a class="btn" href="#projects">Prohlédnout realizace <span>↓</span></a></div>
-  </div>
-  <div class="heroTicker">
-    <div class="heroTickerTrack">
-      <span>STRATEGIE · KREATIVA · FIELD MARKETING · PROMO PERSONÁL · REKLAMNÍ PRODUKCE · LOGISTIKA · </span>
-      <span>STRATEGIE · KREATIVA · FIELD MARKETING · PROMO PERSONÁL · REKLAMNÍ PRODUKCE · LOGISTIKA · </span>
+
+    <div class="hero-v11-main">
+      <h1>Smysluplné<br>kampaně.</h1>
+
+      <div class="hero-v11-bottom">
+        <p>Makáme, myslíme, objevujeme, cestujeme, sníme a vytváříme smysluplné kampaně.</p>
+        <a href="#projects" class="hero-v11-link">
+          <span>Naše realizace</span>
+          <svg viewBox="0 0 18 18" aria-hidden="true">
+            <path d="M3 9h11M10.5 5.5 14 9l-3.5 3.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-v11-wordrail">
+      <div class="hero-v11-wordtrack">
+        <span>MAKÁME</span><i>·</i>
+        <span>MYSLÍME</span><i>·</i>
+        <span>OBJEVUJEME</span><i>·</i>
+        <span>CESTUJEME</span><i>·</i>
+        <span>SNÍME</span><i>·</i>
+        <span>TVOŘÍME</span><i>·</i>
+        <span>MAKÁME</span><i>·</i>
+        <span>MYSLÍME</span><i>·</i>
+        <span>OBJEVUJEME</span><i>·</i>
+        <span>CESTUJEME</span><i>·</i>
+        <span>SNÍME</span><i>·</i>
+        <span>TVOŘÍME</span><i>·</i>
+      </div>
     </div>
   </div>
 </header>
@@ -105,7 +523,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Kreativní a komplexní marketingové strategie pro aktivace a růst značek.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_9a48c94b8fa74ce2a3d1d06b883c39ec~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_9a48c94b8fa74ce2a3d1d06b883c39ec~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article>
 <article class="serviceCard reveal">
   <div class="serviceNo">02</div>
@@ -114,7 +532,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Klíčové vizuály, texty, foto a video v digitálním i instore prostředí.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article>
 <article class="serviceCard reveal">
   <div class="serviceNo">03</div>
@@ -123,7 +541,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Sales Promotion, Brand Activations a Experiential Marketing.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_ffa3086a4b5d42028a3c11b8f8a2bd88~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_ffa3086a4b5d42028a3c11b8f8a2bd88~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article>
 <article class="serviceCard reveal">
   <div class="serviceNo">04</div>
@@ -132,7 +550,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Promotéři, hostesky a externí obchodníci pro launch, výstavy a retail.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_7de737dfd9e94b2aaf45eb6adaa069f7~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_7de737dfd9e94b2aaf45eb6adaa069f7~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article>
 <article class="serviceCard reveal">
   <div class="serviceNo">05</div>
@@ -141,7 +559,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Návrh a výroba POS materiálů, doprava, instalace i skladování.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article>
 <article class="serviceCard reveal">
   <div class="serviceNo">06</div>
@@ -150,7 +568,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
     <p>Materiály dostaneme v pořádku a včas tam, kam mají.</p>
   </div>
   <div class="serviceVisual"><img loading="lazy" src="https://static.wixstatic.com/media/9df8c5_9a48c94b8fa74ce2a3d1d06b883c39ec~mv2.jpg/v1/fill/w_900,h_700,q_88/9df8c5_9a48c94b8fa74ce2a3d1d06b883c39ec~mv2.jpg" alt=""></div>
-  <div class="serviceArrow">↗</div>
+  
 </article></div>
 </section>
 
@@ -205,7 +623,7 @@ footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--line);display
   <div class="contactGrid reveal">
     <div class="contactInfo">
       <div><h3>Praha<br>Modřany.</h3><p>NOE'S, s.r.o.<br>Mezi vodami 17<br>143 00 Praha 12 — Modřany</p></div>
-      <div class="contactLinks"><a href="mailto:recepce@noes.cz">recepce@noes.cz ↗</a><a href="tel:+420777787409">777 787 409 ↗</a></div>
+      <div class="contactLinks"><a href="mailto:recepce@noes.cz">recepce@noes.cz</a><a href="tel:+420777787409">777 787 409</a></div>
     </div>
     <div class="mapReal">
       <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=14.388%2C50.003%2C14.416%2C50.016&amp;layer=mapnik&amp;marker=50.0091%2C14.4025"></iframe>
