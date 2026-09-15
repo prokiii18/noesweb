@@ -3,6 +3,8 @@ import { projects } from '../data';
 import { ArrowUpRight } from './Icons';
 
 const bundledProjectNames = ['Becherovka', 'Biolage'];
+const blankImage =
+  'data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10"%3E%3Crect width="16" height="10" fill="%23e5e7df"/%3E%3C/svg%3E';
 
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
@@ -61,11 +63,12 @@ export default function Portfolio() {
   const sectionRef = useRef(null);
   const pinRef = useRef(null);
   const openerRef = useRef(null);
+  const imageRef = useRef(null);
   const [current, setCurrent] = useState(0);
   const [dialogProject, setDialogProject] = useState(null);
   const [scrollMode, setScrollMode] = useState(false);
   const [railHeight, setRailHeight] = useState(null);
-  const [bundledImages, setBundledImages] = useState({});
+  const [imageReady, setImageReady] = useState(true);
   const travelRef = useRef(0);
 
   const select = useCallback((index) => {
@@ -139,36 +142,46 @@ export default function Portfolio() {
     };
   }, [paint, scrollMode]);
 
+  const project = projects[current];
+  const needsBundledImage = bundledProjectNames.includes(project.name);
+
   useEffect(() => {
-    let cancelled = false;
+    setImageReady(!needsBundledImage);
+    if (!needsBundledImage) return undefined;
 
-    fetch('/realizace-image-fix-v1.js', { cache: 'force-cache' })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Image bundle returned ${response.status}`);
-        return response.text();
-      })
-      .then((source) => {
-        if (cancelled) return;
+    const image = imageRef.current;
+    if (!image) return undefined;
 
-        const resolved = {};
-        bundledProjectNames.forEach((name) => {
-          const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const match = source.match(
-            new RegExp(`${escapedName}:'(data:image\\/webp;base64,[^']+)'`),
-          );
-          if (match?.[1]) resolved[name] = match[1];
-        });
+    image.src = blankImage;
 
-        setBundledImages(resolved);
-      })
-      .catch(() => {
-        if (!cancelled) setBundledImages({});
-      });
+    const observer = new MutationObserver(() => {
+      if (image.src.startsWith('data:image/webp;base64,')) {
+        setImageReady(true);
+      }
+    });
+    observer.observe(image, { attributes: true, attributeFilter: ['src'] });
+
+    const script = document.createElement('script');
+    script.src = `/realizace-image-fix-v1.js?v=${Date.now()}`;
+    script.async = true;
+    document.body.appendChild(script);
+
+    const retry = window.setTimeout(() => {
+      if (!image.src.startsWith('data:image/webp;base64,')) {
+        const retryScript = document.createElement('script');
+        retryScript.src = `/realizace-image-fix-v1.js?v=${Date.now()}-retry`;
+        retryScript.async = true;
+        document.body.appendChild(retryScript);
+        window.setTimeout(() => retryScript.remove(), 1200);
+      }
+    }, 350);
 
     return () => {
-      cancelled = true;
+      observer.disconnect();
+      window.clearTimeout(retry);
+      script.remove();
     };
-  }, []);
+  }, [current, needsBundledImage]);
 
   const go = (index) => {
     const next = (index + projects.length) % projects.length;
@@ -184,14 +197,14 @@ export default function Portfolio() {
     }
   };
 
-  const project = projects[current];
-  const needsBundledImage = bundledProjectNames.includes(project.name);
-  const projectImage = needsBundledImage ? bundledImages[project.name] : project.image;
-
   const openDialog = (event) => {
     openerRef.current = event.currentTarget;
-    if (!projectImage) return;
-    setDialogProject({ ...project, image: projectImage });
+    const displayedImage = imageRef.current;
+    if (!displayedImage || !imageReady) return;
+    setDialogProject({
+      ...project,
+      image: displayedImage.currentSrc || displayedImage.src || project.image,
+    });
   };
 
   const closeDialog = useCallback(() => {
@@ -223,21 +236,24 @@ export default function Portfolio() {
           <div className="project-stage">
             <article className="project" key={project.name}>
               <button
-                className="project-visual"
+                className={`project-visual${imageReady ? ' is-ready' : ' is-loading'}`}
                 type="button"
                 aria-label={`Zvětšit realizaci ${project.name}`}
                 onClick={openDialog}
               >
-                {projectImage ? (
-                  <img
-                    src={projectImage}
-                    alt={`${project.name} — ukázka realizace`}
-                    loading="eager"
-                    decoding="async"
-                  />
-                ) : (
-                  <span className="project-image-placeholder" aria-hidden="true" />
-                )}
+                <img
+                  ref={imageRef}
+                  src={needsBundledImage ? blankImage : project.image}
+                  alt={`${project.name} — ukázka realizace`}
+                  loading="eager"
+                  decoding="async"
+                  onLoad={() => {
+                    if (!needsBundledImage || imageRef.current?.src.startsWith('data:image/webp;base64,')) {
+                      setImageReady(true);
+                    }
+                  }}
+                />
+                {!imageReady && <span className="project-image-placeholder" aria-hidden="true" />}
                 <span className="zoom" aria-hidden="true">
                   <ArrowUpRight size={22} />
                 </span>
@@ -252,7 +268,7 @@ export default function Portfolio() {
                   <span>{project.type}</span>
                 </div>
                 <p>{project.description}</p>
-                <button className="case-open" type="button" onClick={openDialog} disabled={!projectImage}>
+                <button className="case-open" type="button" onClick={openDialog} disabled={!imageReady}>
                   Prohlédnout detail <ArrowUpRight size={14} />
                 </button>
               </div>
