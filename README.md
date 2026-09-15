@@ -1,29 +1,49 @@
-# NOE'S — Website Redesign Concept
+# NOE’S — React Redesign Concept
 
-A modern frontend redesign concept for **NOE'S**, a Czech field marketing, creative and production agency.
+A clean React/Vite rebuild of a modern frontend redesign concept for **NOE'S**, a Czech field marketing, creative and production agency.
 
-The goal of this project is to keep the brand's existing character and content while giving the website a stronger visual hierarchy, more intentional motion and a better responsive experience.
+The project keeps the approved visual direction and public content while replacing the previous fragment/patch based prototype with a maintainable component architecture.
 
-## Highlights
+## Stack
 
-- Kinetic, scroll-driven hero section
-- Sticky service storytelling on desktop
-- Scroll reveal animations and animated statistics
-- Responsive desktop and mobile layouts
-- `prefers-reduced-motion` support
-- Static, Vercel-ready deployment with no build step
+- React
+- Vite
+- Modern CSS
+- Native browser APIs (IntersectionObserver, matchMedia, dialog)
+- Vercel-ready static deployment
 
-## Tech
+## Structure
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Intersection Observer API
-- Native browser animation / scroll APIs
+- `src/components` — isolated UI sections and interactions
+- `src/data.js` — portfolio, services, brands and team content
+- `src/hooks.js` — shared motion and scroll hooks
+- `src/styles.css` — one consolidated responsive stylesheet
 
-## Project focus
+## Interaction highlights
 
-This project focuses on frontend implementation, responsive design, interaction design and motion. The interface uses large typography, restrained transitions and scroll-based storytelling to make the agency's work feel more modern without turning the site into an animation demo.
+- Responsive mobile navigation
+- Reading progress indicator
+- Reduced-motion aware hero parallax
+- Scroll-driven case-study switching on larger screens
+- Keyboard-friendly case selector and controls
+- Native modal dialog for project details
+- Accessible service accordion
+- IntersectionObserver reveal animations
+- Animated statistics
+- Responsive team and contact sections
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Production build:
+
+```bash
+npm run build
+```
 
 ## Note
 
