@@ -2,9 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { projects } from '../data';
 import { ArrowUpRight } from './Icons';
 
-const bundledProjectNames = ['Becherovka', 'Biolage'];
-const blankImage =
-  'data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10"%3E%3Crect width="16" height="10" fill="%23e5e7df"/%3E%3C/svg%3E';
+const bundledProjectNames = new Set(['Becherovka', 'Biolage']);
+const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
 
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
@@ -63,17 +62,14 @@ export default function Portfolio() {
   const sectionRef = useRef(null);
   const pinRef = useRef(null);
   const openerRef = useRef(null);
-  const imageRef = useRef(null);
   const [current, setCurrent] = useState(0);
   const [dialogProject, setDialogProject] = useState(null);
   const [scrollMode, setScrollMode] = useState(false);
   const [railHeight, setRailHeight] = useState(null);
-  const [imageReady, setImageReady] = useState(true);
   const travelRef = useRef(0);
 
   const select = useCallback((index) => {
-    const normalized = (index + projects.length) % projects.length;
-    setCurrent(normalized);
+    setCurrent((index + projects.length) % projects.length);
   }, []);
 
   const measure = useCallback(() => {
@@ -109,14 +105,14 @@ export default function Portfolio() {
     const media = window.matchMedia(
       '(min-width: 850px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)',
     );
-    const onMedia = () => measure();
+    const onMediaChange = () => measure();
 
-    media.addEventListener?.('change', onMedia);
+    media.addEventListener?.('change', onMediaChange);
     window.addEventListener('resize', measure, { passive: true });
     document.fonts?.ready.then(measure);
 
     return () => {
-      media.removeEventListener?.('change', onMedia);
+      media.removeEventListener?.('change', onMediaChange);
       window.removeEventListener('resize', measure);
     };
   }, [measure]);
@@ -124,64 +120,35 @@ export default function Portfolio() {
   useEffect(() => {
     if (!scrollMode) return undefined;
 
-    let raf = 0;
+    let frame = 0;
     const onScroll = () => {
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          paint();
-        });
-      }
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        paint();
+      });
     };
 
     paint();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
     };
   }, [paint, scrollMode]);
 
   const project = projects[current];
-  const needsBundledImage = bundledProjectNames.includes(project.name);
 
   useEffect(() => {
-    setImageReady(!needsBundledImage);
-    if (!needsBundledImage) return undefined;
-
-    const image = imageRef.current;
-    if (!image) return undefined;
-
-    image.src = blankImage;
-
-    const observer = new MutationObserver(() => {
-      if (image.src.startsWith('data:image/webp;base64,')) {
-        setImageReady(true);
-      }
-    });
-    observer.observe(image, { attributes: true, attributeFilter: ['src'] });
+    if (!bundledProjectNames.has(project.name)) return undefined;
 
     const script = document.createElement('script');
-    script.src = `/realizace-image-fix-v1.js?v=${Date.now()}`;
+    script.src = `/realizace-image-fix-v1.js?project=${encodeURIComponent(project.name)}&v=2`;
     script.async = true;
     document.body.appendChild(script);
 
-    const retry = window.setTimeout(() => {
-      if (!image.src.startsWith('data:image/webp;base64,')) {
-        const retryScript = document.createElement('script');
-        retryScript.src = `/realizace-image-fix-v1.js?v=${Date.now()}-retry`;
-        retryScript.async = true;
-        document.body.appendChild(retryScript);
-        window.setTimeout(() => retryScript.remove(), 1200);
-      }
-    }, 350);
-
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(retry);
-      script.remove();
-    };
-  }, [current, needsBundledImage]);
+    return () => script.remove();
+  }, [project.name]);
 
   const go = (index) => {
     const next = (index + projects.length) % projects.length;
@@ -192,18 +159,18 @@ export default function Portfolio() {
         top: start + (travelRef.current * next) / (projects.length - 1),
         behavior: 'smooth',
       });
-    } else {
-      select(next);
+      return;
     }
+
+    select(next);
   };
 
   const openDialog = (event) => {
     openerRef.current = event.currentTarget;
-    const displayedImage = imageRef.current;
-    if (!displayedImage || !imageReady) return;
+    const image = sectionRef.current?.querySelector('.project-visual img');
     setDialogProject({
       ...project,
-      image: displayedImage.currentSrc || displayedImage.src || project.image,
+      image: image?.currentSrc || image?.src || project.image,
     });
   };
 
@@ -236,24 +203,18 @@ export default function Portfolio() {
           <div className="project-stage">
             <article className="project" key={project.name}>
               <button
-                className={`project-visual${imageReady ? ' is-ready' : ' is-loading'}`}
+                className="project-visual"
                 type="button"
                 aria-label={`Zvětšit realizaci ${project.name}`}
                 onClick={openDialog}
               >
                 <img
-                  ref={imageRef}
-                  src={needsBundledImage ? blankImage : project.image}
+                  key={project.name}
+                  src={bundledProjectNames.has(project.name) ? transparentPixel : project.image}
                   alt={`${project.name} — ukázka realizace`}
                   loading="eager"
                   decoding="async"
-                  onLoad={() => {
-                    if (!needsBundledImage || imageRef.current?.src.startsWith('data:image/webp;base64,')) {
-                      setImageReady(true);
-                    }
-                  }}
                 />
-                {!imageReady && <span className="project-image-placeholder" aria-hidden="true" />}
                 <span className="zoom" aria-hidden="true">
                   <ArrowUpRight size={22} />
                 </span>
@@ -268,7 +229,7 @@ export default function Portfolio() {
                   <span>{project.type}</span>
                 </div>
                 <p>{project.description}</p>
-                <button className="case-open" type="button" onClick={openDialog} disabled={!imageReady}>
+                <button className="case-open" type="button" onClick={openDialog}>
                   Prohlédnout detail <ArrowUpRight size={14} />
                 </button>
               </div>
