@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ArrowUpRight } from './Icons';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function Header() {
         <a href="#projects" onClick={close}>Realizace</a>
         <a href="#services" onClick={close}>Expertíza</a>
         <a href="#team" onClick={close}>O nás</a>
-        <a className="nav-contact" href="#contact" onClick={close}>Pojďme spolupracovat <span aria-hidden="true">↗</span></a>
+        <a className="nav-contact" href="#contact" onClick={close}>Pojďme spolupracovat <span aria-hidden="true"><ArrowUpRight size={15} /></span></a>
       </nav>
     </header>
   );
