@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { services } from '../data';
+import { ArrowUpRight } from './Icons';
 
 export default function Services() {
   const [openIndex, setOpenIndex] = useState(0);
   return (
     <section className="section services" id="services">
       <div className="service-layout">
-        <div className="service-intro"><div className="section-label">03 / Naše expertíza</div><h2>Od nápadu<br />až do terénu.</h2><p>Strategii nevěšíme na zeď. Dotahujeme ji až do momentu, kdy ji potká zákazník.</p><a className="text-link" href="#contact">Proberme váš projekt ↗</a></div>
+        <div className="service-intro"><div className="section-label">03 / Naše expertíza</div><h2>Od nápadu<br />až do terénu.</h2><p>Strategii nevěšíme na zeď. Dotahujeme ji až do momentu, kdy ji potká zákazník.</p><a className="text-link" href="#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>Proberme váš projekt <ArrowUpRight size={14} /></a></div>
         <div className="service-list">
           {services.map((service, index) => {
             const open = openIndex === index;
