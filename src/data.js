@@ -1,5 +1,5 @@
 export const brands = [
-  { name: 'Becherovka', src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Becherovka.svg/500px-Becherovka.svg.png' },
+  { name: 'Becherovka', src: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Becherovka.svg' },
   { name: 'Kiri', src: 'https://cdn.freebiesupply.com/logos/large/2x/kiri-logo-png-transparent.png' },
   { name: 'Biolage', src: 'https://static.wixstatic.com/media/9df8c5_bd1f569388a347c8b81e749fed0bacef~mv2.png' },
   { name: 'Kérastase', src: 'https://static.wixstatic.com/media/9df8c5_01945cf09d7940f389cd5b37664e8e76~mv2.png' },
