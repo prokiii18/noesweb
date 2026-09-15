@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../hooks';
+import { ArrowUpRight } from './Icons';
 
 export default function FeaturedWork() {
   const sectionRef = useRef(null);
@@ -39,10 +40,10 @@ export default function FeaturedWork() {
         <div className="feature" ref={sectionRef}>
           <img src="https://static.wixstatic.com/media/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg" alt="Detail tištěné realizace L’Oréal s fotografií krajiny a řeky" style={{ transform: `translateY(${offset}px)` }} />
           <div className="feature-top"><span>Vybraná práce</span><span>NOE’S / Kreativa & produkce</span></div>
-          <div className="feature-content"><div><h2>Od myšlenky<br />k poslednímu detailu.</h2><p>Koncept. Obsah. Provedení.</p></div><span className="feature-arrow" aria-hidden="true">↗</span></div>
+          <div className="feature-content"><div><h2>Od myšlenky<br />k poslednímu detailu.</h2><p>Koncept. Obsah. Provedení.</p></div><span className="feature-arrow" aria-hidden="true"><ArrowUpRight size={24} /></span></div>
         </div>
       </a>
-      <div className="feature-caption"><span>Strategie se pozná podle realizace.</span><span>Prohlédnout portfolio ↗</span></div>
+      <div className="feature-caption"><span>Strategie se pozná podle realizace.</span><span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>Prohlédnout portfolio <ArrowUpRight size={12} /></span></div>
     </section>
   );
 }
