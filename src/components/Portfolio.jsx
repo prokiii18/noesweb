@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { projects } from '../data';
+import { ArrowUpRight } from './Icons';
 
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
@@ -138,8 +139,8 @@ export default function Portfolio() {
           </div>
           <div className="project-stage">
             <article className="project" key={project.name}>
-              <button className="project-visual" type="button" aria-label={`Zvětšit realizaci ${project.name}`} onClick={openDialog}><img src={project.image} alt={`${project.name} — ukázka realizace`} loading="lazy" /><span className="zoom" aria-hidden="true">↗</span></button>
-              <div className="case-copy"><span className="case-number">{String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span><div className="project-title"><h3>{project.name}</h3><span>{project.type}</span></div><p>{project.description}</p><button className="case-open" type="button" onClick={openDialog}>Prohlédnout detail ↗</button></div>
+              <button className="project-visual" type="button" aria-label={`Zvětšit realizaci ${project.name}`} onClick={openDialog}><img src={project.image} alt={`${project.name} — ukázka realizace`} loading="lazy" /><span className="zoom" aria-hidden="true"><ArrowUpRight size={22} /></span></button>
+              <div className="case-copy"><span className="case-number">{String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span><div className="project-title"><h3>{project.name}</h3><span>{project.type}</span></div><p>{project.description}</p><button className="case-open" type="button" onClick={openDialog}>Prohlédnout detail <ArrowUpRight size={14} /></button></div>
             </article>
           </div>
           <div className="case-controls"><span className="case-status" aria-live="polite" aria-atomic="true">{String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')} — {project.name}</span><div><button type="button" aria-label="Předchozí realizace" onClick={() => go(current - 1)}>←</button><button type="button" aria-label="Další realizace" onClick={() => go(current + 1)}>→</button></div></div>
