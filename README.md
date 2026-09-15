@@ -1,35 +1,49 @@
-# NOE'S — Website Redesign Concept
+# NOE’S — React Redesign Concept
 
-A modern frontend redesign concept for **NOE'S**, a Czech field marketing, creative and production agency.
+A clean React/Vite rebuild of a modern frontend redesign concept for **NOE'S**, a Czech field marketing, creative and production agency.
 
-The goal of this project is to keep the brand's existing character and public content while giving the website a stronger visual hierarchy, more intentional motion and a better responsive experience.
+The project keeps the approved visual direction and public content while replacing the previous fragment/patch based prototype with a maintainable component architecture.
 
-## Highlights
+## Stack
 
-- Kinetic, scroll-driven hero section
-- Sticky service storytelling on desktop
-- Interactive case-study switching and native dialog detail view
-- Scroll reveal animations and animated statistics
-- Responsive desktop, tablet and mobile layouts
-- Keyboard-accessible navigation and controls
-- `prefers-reduced-motion` support
-- Static, Vercel-ready deployment with no build step
+- React
+- Vite
+- Modern CSS
+- Native browser APIs (IntersectionObserver, matchMedia, dialog)
+- Vercel-ready static deployment
 
-## Tech
+## Structure
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Intersection Observer API
-- Native browser animation / scroll APIs
+- `src/components` — isolated UI sections and interactions
+- `src/data.js` — portfolio, services, brands and team content
+- `src/hooks.js` — shared motion and scroll hooks
+- `src/styles.css` — one consolidated responsive stylesheet
 
-## Project focus
+## Interaction highlights
 
-This project focuses on frontend implementation, responsive design, interaction design and motion. The interface uses large typography, restrained transitions and scroll-based storytelling to make the agency's work feel more modern without turning the site into an animation demo.
+- Responsive mobile navigation
+- Reading progress indicator
+- Reduced-motion aware hero parallax
+- Scroll-driven case-study switching on larger screens
+- Keyboard-friendly case selector and controls
+- Native modal dialog for project details
+- Accessible service accordion
+- IntersectionObserver reveal animations
+- Animated statistics
+- Responsive team and contact sections
 
-## Runtime structure
+## Run locally
 
-The deployed concept is intentionally framework-free. `index.html` bootstraps the current approved presentation from the four `final_*.txt` fragments and then loads the small enhancement scripts used for logo cleanup, portfolio interactions and image/arrow fixes. Legacy iteration and preview files have been removed from the portfolio branch so the repository contains only files required by the current version.
+```bash
+npm install
+npm run dev
+```
+
+Production build:
+
+```bash
+npm run build
+```
 
 ## Note
 
