@@ -1,1 +1,69 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>(async()=>{const files=['/final_00.txt','/final_01.txt','/final_02.txt','/final_03.txt'];const html=(await Promise.all(files.map(async f=>await(await fetch(f,{cache:'no-store'})).text()))).join('');document.open();document.write(html);document.close();const s=document.createElement('script');s.src='/logos-original-v1.js?v=aca22ce';s.async=false;s.onload=()=>{const p=document.createElement('script');p.src='/portfolio-cta-v1.js?v=2dabc20';p.async=false;p.onload=()=>{const f=document.createElement('script');f.src='/realizace-image-fix-v1.js?v=1f94762';f.async=false;f.onload=()=>{const a=document.createElement('script');a.src='/remove-emoji-arrows-v1.js?v=c96b75b';a.async=false;document.body.appendChild(a)};document.body.appendChild(f)};document.body.appendChild(p)};document.body.appendChild(s)})()</script>
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f8f5">
+  <meta name="description" content="Neoficiální redesign koncept webu NOE’S zaměřený na moderní frontend, responzivní design a scroll-driven interakce.">
+  <title>NOE’S — Website Redesign Concept</title>
+</head>
+<body>
+  <noscript>Pro zobrazení tohoto redesign konceptu je potřeba povolit JavaScript.</noscript>
+  <script>
+    (() => {
+      'use strict';
+
+      const fragments = [
+        '/final_00.txt',
+        '/final_01.txt',
+        '/final_02.txt',
+        '/final_03.txt'
+      ];
+
+      const enhancements = [
+        '/logos-original-v1.js?v=aca22ce',
+        '/portfolio-cta-v1.js?v=2dabc20',
+        '/realizace-image-fix-v1.js?v=1f94762',
+        '/remove-emoji-arrows-v1.js?v=c96b75b'
+      ];
+
+      async function fetchFragment(path) {
+        const response = await fetch(path, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Failed to load ${path}: ${response.status}`);
+        }
+        return response.text();
+      }
+
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = false;
+          script.onload = resolve;
+          script.onerror = () => reject(new Error(`Failed to load ${src}`));
+          document.body.appendChild(script);
+        });
+      }
+
+      async function bootstrap() {
+        try {
+          const html = (await Promise.all(fragments.map(fetchFragment))).join('');
+          document.open();
+          document.write(html);
+          document.close();
+
+          for (const src of enhancements) {
+            await loadScript(src);
+          }
+        } catch (error) {
+          console.error(error);
+          document.body.innerHTML = '<main style="font-family:system-ui;padding:32px;max-width:720px;margin:auto"><h1>Web se nepodařilo načíst.</h1><p>Zkuste stránku obnovit. Pokud problém přetrvává, zkontrolujte dostupnost souborů projektu.</p></main>';
+        }
+      }
+
+      bootstrap();
+    })();
+  </script>
+</body>
+</html>
