@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { projects } from '../data';
 import { ArrowUpRight } from './Icons';
 
+const bundledProjectNames = ['Becherovka', 'Biolage'];
+
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
 
@@ -63,6 +65,7 @@ export default function Portfolio() {
   const [dialogProject, setDialogProject] = useState(null);
   const [scrollMode, setScrollMode] = useState(false);
   const [railHeight, setRailHeight] = useState(null);
+  const [bundledImages, setBundledImages] = useState({});
   const travelRef = useRef(0);
 
   const select = useCallback((index) => {
@@ -137,16 +140,35 @@ export default function Portfolio() {
   }, [paint, scrollMode]);
 
   useEffect(() => {
-    const projectName = projects[current]?.name;
-    if (!['Becherovka', 'Biolage'].includes(projectName)) return undefined;
+    let cancelled = false;
 
-    const script = document.createElement('script');
-    script.src = `/realizace-image-fix-v1.js?project=${encodeURIComponent(projectName)}`;
-    script.async = true;
-    document.body.appendChild(script);
+    fetch('/realizace-image-fix-v1.js', { cache: 'force-cache' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Image bundle returned ${response.status}`);
+        return response.text();
+      })
+      .then((source) => {
+        if (cancelled) return;
 
-    return () => script.remove();
-  }, [current]);
+        const resolved = {};
+        bundledProjectNames.forEach((name) => {
+          const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const match = source.match(
+            new RegExp(`${escapedName}:'(data:image\\/webp;base64,[^']+)'`),
+          );
+          if (match?.[1]) resolved[name] = match[1];
+        });
+
+        setBundledImages(resolved);
+      })
+      .catch(() => {
+        if (!cancelled) setBundledImages({});
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const go = (index) => {
     const next = (index + projects.length) % projects.length;
@@ -162,21 +184,20 @@ export default function Portfolio() {
     }
   };
 
+  const project = projects[current];
+  const needsBundledImage = bundledProjectNames.includes(project.name);
+  const projectImage = needsBundledImage ? bundledImages[project.name] : project.image;
+
   const openDialog = (event) => {
     openerRef.current = event.currentTarget;
-    const displayedImage = sectionRef.current?.querySelector('.project-visual img');
-    setDialogProject({
-      ...projects[current],
-      image: displayedImage?.currentSrc || displayedImage?.src || projects[current].image,
-    });
+    if (!projectImage) return;
+    setDialogProject({ ...project, image: projectImage });
   };
 
   const closeDialog = useCallback(() => {
     setDialogProject(null);
     openerRef.current?.focus({ preventScroll: true });
   }, []);
-
-  const project = projects[current];
 
   return (
     <>
@@ -207,12 +228,16 @@ export default function Portfolio() {
                 aria-label={`Zvětšit realizaci ${project.name}`}
                 onClick={openDialog}
               >
-                <img
-                  src={project.image}
-                  alt={`${project.name} — ukázka realizace`}
-                  loading="eager"
-                  decoding="async"
-                />
+                {projectImage ? (
+                  <img
+                    src={projectImage}
+                    alt={`${project.name} — ukázka realizace`}
+                    loading="eager"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className="project-image-placeholder" aria-hidden="true" />
+                )}
                 <span className="zoom" aria-hidden="true">
                   <ArrowUpRight size={22} />
                 </span>
@@ -227,7 +252,7 @@ export default function Portfolio() {
                   <span>{project.type}</span>
                 </div>
                 <p>{project.description}</p>
-                <button className="case-open" type="button" onClick={openDialog}>
+                <button className="case-open" type="button" onClick={openDialog} disabled={!projectImage}>
                   Prohlédnout detail <ArrowUpRight size={14} />
                 </button>
               </div>
