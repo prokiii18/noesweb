@@ -2,9 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { projects } from '../data';
 import { ArrowUpRight } from './Icons';
 
-const bundledProjectNames = new Set(['Becherovka', 'Biolage']);
-const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
 
@@ -139,17 +136,6 @@ export default function Portfolio() {
 
   const project = projects[current];
 
-  useEffect(() => {
-    if (!bundledProjectNames.has(project.name)) return undefined;
-
-    const script = document.createElement('script');
-    script.src = `/realizace-image-fix-v1.js?project=${encodeURIComponent(project.name)}&v=2`;
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => script.remove();
-  }, [project.name]);
-
   const go = (index) => {
     const next = (index + projects.length) % projects.length;
 
@@ -167,11 +153,7 @@ export default function Portfolio() {
 
   const openDialog = (event) => {
     openerRef.current = event.currentTarget;
-    const image = sectionRef.current?.querySelector('.project-visual img');
-    setDialogProject({
-      ...project,
-      image: image?.currentSrc || image?.src || project.image,
-    });
+    setDialogProject(project);
   };
 
   const closeDialog = useCallback(() => {
@@ -210,7 +192,7 @@ export default function Portfolio() {
               >
                 <img
                   key={project.name}
-                  src={bundledProjectNames.has(project.name) ? transparentPixel : project.image}
+                  src={project.image}
                   alt={`${project.name} — ukázka realizace`}
                   loading="eager"
                   decoding="async"
