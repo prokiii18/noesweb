@@ -9,9 +9,9 @@ export const brands = [
 ];
 
 export const projects = [
-  { name: 'Becherovka', type: 'EXPERIENTIAL / ACTIVATION', description: 'Silná značka, výrazný vizuál a aktivace, která funguje přímo mezi lidmi.', image: 'https://static.wixstatic.com/media/9df8c5_d6826b55b17e41a2b6e1885affb45ef7~mv2.avif' },
+  { name: 'Becherovka', type: 'EXPERIENTIAL / ACTIVATION', description: 'Silná značka, výrazný vizuál a aktivace, která funguje přímo mezi lidmi.', image: '/images/becherovka.webp' },
   { name: 'Kiri', type: 'RETAIL / POS', description: 'Hravá retailová realizace, která dostává Kiri přímo do místa nákupu.', image: 'https://static.wixstatic.com/media/9df8c5_5eaeb0c2dfd0418b9adc0cc4a97f55a6~mv2.jpg' },
-  { name: 'Biolage', type: 'BEAUTY / PRODUCTION', description: 'Beauty komunikace a produkce s důrazem na čistý vizuál a detail značky.', image: 'https://static.wixstatic.com/media/9df8c5_60d250ea4430472c80f63a0114a27aab~mv2.avif' },
+  { name: 'Biolage', type: 'BEAUTY / PRODUCTION', description: 'Beauty komunikace a produkce s důrazem na čistý vizuál a detail značky.', image: '/images/biolage.webp' },
   { name: 'Kérastase', type: 'BEAUTY / CREATIVE', description: 'Prémiová beauty realizace, kde stejně dobře funguje idea i exekuce.', image: 'https://static.wixstatic.com/media/9df8c5_40ddeb4953f34ea0a5423af168edc8fb~mv2.jpg' },
 ];
 
