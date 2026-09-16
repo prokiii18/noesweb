@@ -1,0 +1,21 @@
+/* Portfolio thumbnails: prevent letterboxing around the two local campaign photos. */
+.project-visual img[src$="/images/becherovka.webp"],
+.project-visual img[src$="/images/biolage.webp"] {
+  object-fit: cover;
+}
+
+/* Keep the controls minimal instead of showing multiple concentric circles. */
+.project-visual .zoom,
+.dialog-close {
+  border-radius: 7px;
+}
+
+.dialog-close {
+  border-color: transparent;
+}
+
+/* Preserve a visible keyboard focus indication without the red outer ring. */
+.dialog-close:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--ink);
+}

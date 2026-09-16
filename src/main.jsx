@@ -4,6 +4,7 @@ import App from './App';
 import './styles.css';
 import './brand-marquee.css';
 import './contact-polish.css';
+import './portfolio.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
