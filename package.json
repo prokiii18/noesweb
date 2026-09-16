@@ -7,13 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "check:assets": "node scripts/check-assets.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vitejs/plugin-react": "^5.0.2",
     "vite": "^7.1.5"
   }
