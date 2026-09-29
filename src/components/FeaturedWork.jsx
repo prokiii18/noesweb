@@ -43,7 +43,7 @@ export default function FeaturedWork() {
           <div className="feature-content"><div><h2>Od myšlenky<br />k poslednímu detailu.</h2><p>Koncept. Obsah. Provedení.</p></div><span className="feature-arrow" aria-hidden="true"><ArrowUpRight size={24} /></span></div>
         </div>
       </a>
-      <div className="feature-caption"><span>Strategie se pozná podle realizace.</span><span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>Prohlédnout portfolio <ArrowUpRight size={12} /></span></div>
+      <div className="feature-caption"><span>Strategie se pozná podle realizace.</span><span className="inline-icon-link inline-icon-link--xs">Prohlédnout portfolio <ArrowUpRight size={12} /></span></div>
     </section>
   );
 }
