@@ -15,7 +15,7 @@ export default function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className={open ? 'site-header is-open' : 'site-header'}>
+    <header id="top" className={open ? 'site-header is-open' : 'site-header'}>
       <div className="brand">
         <a className="wordmark" href="#top" aria-label="NOE’S úvod" onClick={close}>NOE’S</a>
         <span className="brand-caption">Strategie. Kreativa.<br />Realizace.</span>
