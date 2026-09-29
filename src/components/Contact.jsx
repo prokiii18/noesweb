@@ -35,7 +35,7 @@ export default function Contact() {
             <br />
             143 00 Praha 12 — Modřany
           </address>
-          <a className="mail" href="mailto:recepce@noes.cz" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <a className="mail inline-icon-link inline-icon-link--lg" href="mailto:recepce@noes.cz">
             recepce@noes.cz <ArrowUpRight size={16} />
           </a>
           <a className="phone" href="tel:+420777787409">777 787 409</a>
@@ -51,7 +51,7 @@ export default function Contact() {
             href="https://www.openstreetmap.org/?mlat=50.0091&mlon=14.4025#map=16/50.0091/14.4025"
             target="_blank"
             rel="noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            className="inline-icon-link inline-icon-link--sm"
           >
             NOE'S · Mezi vodami 17 <ArrowUpRight size={13} />
           </a>
