@@ -12,3 +12,13 @@
 @keyframes service-photo-enter{from{opacity:.35;transform:scale(1.035) translateY(9px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @media(max-width:700px){.project-visual img{object-fit:cover}.project-visual{background:#e5e7df}}
 @media(prefers-reduced-motion:reduce){.project-visual img,.feature>img,.feature-arrow,.service-title{transition:none!important;will-change:auto}.service-photo img{animation:none!important}}
+
+/* Mobile-first scroll reveal polish */
+.reveal{transform:translate3d(0,38px,0);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.is-visible{transform:translate3d(0,0,0)}
+.project-stage .project{animation:project-swap .65s cubic-bezier(.2,.7,.2,1) both}
+@keyframes project-swap{from{opacity:.45;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.project-visual img{animation:project-image-in .8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes project-image-in{from{opacity:.6;transform:scale(1.045)}to{opacity:1;transform:scale(1)}}
+@media(max-width:700px){.project-visual img{object-fit:contain}.reveal{transform:translate3d(0,30px,0)}}
+@media(prefers-reduced-motion:reduce){.project-stage .project,.project-visual img{animation:none!important}.reveal{opacity:1!important;transform:none!important}}
