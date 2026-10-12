@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { projects } from '../data';
 import { ArrowUpRight } from './Icons';
+import Reveal from './Reveal';
 
 function ProjectDialog({ project, open, onClose }) {
   const dialogRef = useRef(null);
@@ -170,7 +171,7 @@ export default function Portfolio() {
         style={railHeight ? { '--case-rail-height': `${railHeight}px` } : undefined}
       >
         <div className="portfolio-pin" ref={pinRef}>
-          <div className="portfolio-heading">
+          <Reveal className="portfolio-heading">
             <div>
               <span className="section-label">02 / Naše práce</span>
               <h2>Vybrané realizace.</h2>
@@ -180,7 +181,7 @@ export default function Portfolio() {
                 ? 'Scrollujte a objevte jednotlivé realizace.'
                 : 'Procházejte realizace pomocí šipek.'}
             </p>
-          </div>
+          </Reveal>
 
           <div className="project-stage">
             <article className="project" key={project.name}>
